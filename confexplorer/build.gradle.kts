@@ -1,12 +1,14 @@
-val reactVersion="16.13.1"
-val kotlinReactWrapperVersion="16.13.1-pre.109-kotlin-1.4.0-rc"
-
 plugins {
     kotlin("js") version "1.4.0-rc"
 }
-
 group = "pro.devil"
 version = "1.0-SNAPSHOT"
+
+val kotlinReactVersion = "16.13.1-pre.109-kotlin-1.4.0-rc"
+val reactVersion = "16.13.1"
+val kotlinHtmlVersion = "0.7.1-1.4.0-rc"
+val kotlinStyledVersion = "1.0.0-pre.109-kotlin-1.4.0-rc"
+val kotlinCoroutinesVersion = "1.3.8-1.4.0-rc"
 
 repositories {
     mavenCentral()
@@ -24,13 +26,18 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-js"))
-    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.1-1.4.0-rc")
-    implementation("org.jetbrains:kotlin-react:$kotlinReactWrapperVersion")
-    implementation("org.jetbrains:kotlin-react-dom:$kotlinReactWrapperVersion")
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.109-kotlin-1.4.0-rc")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-js:$kotlinHtmlVersion")
+    implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
+    implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+    implementation("org.jetbrains:kotlin-styled:$kotlinStyledVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
 
     implementation(npm("react", reactVersion))
     implementation(npm("react-dom", reactVersion))
+    implementation(npm("styled-components", "latest"))
+    implementation(npm("inline-style-prefixer", "latest"))
+    implementation(npm("react-player", "latest"))
+    implementation(npm("react-share", "latest"))
 }
 
 kotlin {
