@@ -1,5 +1,5 @@
+import kotlinx.html.js.onClickFunction
 import react.*
-import react.dom.code
 import react.dom.p
 import styled.*
 
@@ -7,44 +7,62 @@ external interface AppProps : RProps {
     var name: String
 }
 
-private val App = functionalComponent<AppProps> { _ ->
+external interface AppState : RState {
+    var someText: String?
+}
 
-    styledDiv {
-        css {
-            +AppStyles.appContainer
-        }
+private class App : RComponent<AppProps, AppState>() {
 
-        styledHeader {
+    /**
+     * Первоначальная инициализация state
+     */
+    override fun AppState.init() {
+        someText = "Initial State"
+    }
+
+    override fun RBuilder.render() {
+        styledDiv {
             css {
-                +AppStyles.appHeader
+                +AppStyles.appContainer
             }
 
-            styledImg(src = "/logo.svg") {
+            styledHeader {
                 css {
-                    +AppStyles.appLogo
+                    +AppStyles.appHeader
                 }
-            }
 
-            p {
-                +"Edit "
-                code {
-                    +"src/App.js"
+                styledImg(src = "/logo.svg") {
+                    css {
+                        +AppStyles.appLogo
+                    }
                 }
-                +" and save to reload."
-            }
 
-            styledA(href = "https://reactjs.org", target = "blank") {
-                css {
-                    +AppStyles.appLink
+                p {
+                    +"From Props: ${props.name}"
                 }
-                +"Learn React"
+
+                p {
+                    +"From State: ${state.someText}"
+                }
+
+                styledButton {
+                    attrs {
+                        onClickFunction = {
+                            setState {
+                                someText = "Press Me Button Clicked"
+                            }
+                        }
+                    }
+
+                    +"Press Me"
+                }
             }
         }
     }
 }
 
 fun RBuilder.app(handler: AppProps.() -> Unit): ReactElement {
-    return child(App) {
+    return child(App::class) {
         attrs {
             handler()
         }
