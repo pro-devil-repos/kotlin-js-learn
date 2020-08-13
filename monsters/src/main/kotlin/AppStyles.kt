@@ -1,6 +1,7 @@
 import kotlinx.css.*
 import kotlinx.css.properties.*
 import styled.StyleSheet
+import styled.animation
 
 object AppStyles : StyleSheet("AppStyles", isStatic = false) {
     val appContainer by css {
@@ -12,12 +13,18 @@ object AppStyles : StyleSheet("AppStyles", isStatic = false) {
         pointerEvents = PointerEvents.none
 
         media("(prefers-reduced-motion: no-preference)") {
-            animation(
-                "App-logo-spin",
-                iterationCount = IterationCount.infinite,
-                duration = 20.s,
-                timing = Timing.linear
-            )
+            animation(iterationCount = IterationCount.infinite, duration = 20.s, timing = Timing.linear) {
+                from {
+                    transform {
+                        rotate(0.deg)
+                    }
+                }
+                to {
+                    transform {
+                        rotate(360.deg)
+                    }
+                }
+            }
         }
     }
 
